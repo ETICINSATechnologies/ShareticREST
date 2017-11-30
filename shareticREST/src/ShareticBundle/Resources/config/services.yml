@@ -1,4 +1,6 @@
 services:
+    sharetic.APIResponse:
+        class: ShareticBundle\Services\APIResponse
 #    sharetic.example:
 #        class: ShareticBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]

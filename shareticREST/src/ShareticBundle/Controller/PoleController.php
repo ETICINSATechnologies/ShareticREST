@@ -17,6 +17,7 @@ class PoleController extends Controller
         $response[0]=array("id"=>0,"name"=>"Test0");
         $response[1]=array("id"=>1,"name"=>"Test1");
         $response[2]=array("id"=>2,"name"=>"Test2");
-        return new JsonResponse($response);
+        $APIResp = $this->container->get('sharetic.APIResponse');
+        return $APIResp->returnResponse($response);
     }
 }
