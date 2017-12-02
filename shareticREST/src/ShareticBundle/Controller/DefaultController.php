@@ -12,6 +12,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('ShareticBundle:Default:index.html.twig');
+        //Initialising the service
+        $APIResp = $this->container->get('sharetic.APIResponse');
+
+        $response = array();
+        $response['version']="?";
+
+        return $APIResp->returnResponse($response);
     }
 }
