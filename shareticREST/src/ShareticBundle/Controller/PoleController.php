@@ -23,7 +23,7 @@ class PoleController extends Controller
         $response[1]=array("id"=>1,"name"=>"Test1");
         $response[2]=array("id"=>2,"name"=>"Test2");
 
-        
+
         return $APIResp->returnResponse($response);
     }
     /**
