@@ -10,8 +10,8 @@ An online open source formation platform (MOOC-like) for Junior-Enterprises.
 ## Structure
 
 This project is splitted into two repositories (Frontend and Backend) :
-- This repo (**ShareticCLIENT**) contains the source code of the Angular application.
-- The repo [**ShareticREST**](https://github.com/ETICINSATechnologies/ShareticREST) contains the source code of the Symfony application (as a RESTful API).
+- The repo (**ShareticCLIENT**) contains the source code of the Angular application.
+- This repo [**ShareticREST**](https://github.com/ETICINSATechnologies/ShareticREST) contains the source code of the Symfony application (as a RESTful API).
 
 They can be deployed to two different servers, just edit the config files if needed.
 
