@@ -10,4 +10,5 @@
 /vendor/
 /bin/
 /composer.phar
-/.idea/
+**/.idea/workspace.xml
+**/.idea/tasks.xml
