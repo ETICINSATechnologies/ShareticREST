@@ -1,18 +1,14 @@
 language: php
-
 php:
-	- 7.0
-
+   - 7.0
 before_script:
-	- cd shareticREST
-	- cp app/config/parameters.yml.travis app/config/parameters.yml
-	- composer install
-	- php app/console doctrine:database:create --env=test
-	- php app/console doctrine:schema:create --env=test
-	- php app/console doctrine:fixtures:load -n --env=test
-
+   - cd shareticREST
+   - cp app/config/parameters.yml.travis app/config/parameters.yml
+   - composer install
+   - php app/console doctrine:database:create --env=test
+   - php app/console doctrine:schema:create --env=test
 script:
-	- phpunit -c app
-	
+   - phpunit -c app
+   
 notifications:
-	email: false
+   email: false
