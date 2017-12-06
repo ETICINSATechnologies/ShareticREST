@@ -12,7 +12,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        //Initialising the service
+        //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         $response = array();
