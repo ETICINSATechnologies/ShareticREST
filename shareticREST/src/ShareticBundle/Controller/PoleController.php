@@ -5,8 +5,6 @@ namespace ShareticBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 class PoleController extends Controller
 {
     /**
@@ -14,7 +12,7 @@ class PoleController extends Controller
      */
     public function getListPoles()
     {
-        //Initialising the service
+        //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         //Just an example of a possible structure of the response
@@ -31,7 +29,7 @@ class PoleController extends Controller
      */
     public function getListFormations($id=-1)
     {
-        //Initialising the service
+        //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         //Just an example of a possible structure of the response
