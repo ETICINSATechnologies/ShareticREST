@@ -59,4 +59,18 @@ class UserController extends Controller
 
         return $APIResp->returnResponse($response);
     }
+
+    /**
+     * @Route("/user/{idUser}/badge/give", requirements={"idUser": "\d+"})
+     */
+    public function giveUserBadge($idUser)
+    {
+        //Initializing the service
+        $APIResp = $this->container->get('sharetic.APIResponse');
+
+        $response = array();
+        $response['?']="?";
+
+        return $APIResp->returnResponse($response);
+    }
 }
