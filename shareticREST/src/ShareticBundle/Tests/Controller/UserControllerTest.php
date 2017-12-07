@@ -11,7 +11,7 @@ class UserControllerTest extends WebTestCase
         echo "\nUserControllerTest.php - testRequest()\n";
         $client = static::createClient();
 
-        $reqGET = array("/api/user/profil","/api/user/stats","/api/user/0/profil","/api/user/0/stats");
+        $reqGET = array("/api/user/profil","/api/user/stats","/api/user/0/profil","/api/user/0/stats","/api/user/0/badge/give");
 
         for($i=0;$i<sizeof($reqGET);$i++){
             echo $reqGET[$i];
