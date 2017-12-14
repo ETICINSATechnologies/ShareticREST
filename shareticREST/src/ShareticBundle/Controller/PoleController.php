@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use ShareticBundle\Entity\Pole;
+use ShareticBundle\Entity\Formation;
 
 class PoleController extends Controller
 {
@@ -28,7 +29,7 @@ class PoleController extends Controller
             $c++;
 
         }
-        
+
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         return $APIResp->returnResponse($response);
@@ -38,15 +39,27 @@ class PoleController extends Controller
      */
     public function getListFormations($id=-1)
     {
-        //Initializing the service
-        $APIResp = $this->container->get('sharetic.APIResponse');
+        $em = $this->get('doctrine.orm.entity_manager');
 
-        //Just an example of a possible structure of the response
+        $repo_pole = $em->getRepository('ShareticBundle:Formation');
+
+        $records = $repo_pole->findBy(array('pole_id'=>$id));
+
         $response = array();
-        $response[0]=array("id"=>0,"name"=>"formation0");
-        $response[1]=array("id"=>1,"name"=>"formation1");
-        $response[2]=array("id"=>2,"name"=>"formation2");
+        $c=0;
+        foreach($records as $formation){
+            $formation_arr = array(
+                "id" => $formation->getId(),
+                "name" => $formation->getName(),
+                "description" => $formation->getDescription()
+            );
 
+            $response[$c]=$formation_arr;
+            $c++;
+
+        }
+
+        $APIResp = $this->container->get('sharetic.APIResponse');
 
         return $APIResp->returnResponse($response);
     }
