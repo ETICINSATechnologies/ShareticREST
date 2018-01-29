@@ -11,7 +11,7 @@ class MCQControllerTest extends WebTestCase
         echo "\nMCQControllerTest.php - testRequest()\n";
         $client = static::createClient();
 
-        $reqGET = array("/api/mcq/0");
+        $reqGET = array("/api/mcq/0/");
 
         for($i=0;$i<sizeof($reqGET);$i++){
             echo $reqGET[$i];

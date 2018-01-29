@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class MCQController extends Controller
 {
     /**
-     * @Route("/mcq/{idMCQ}/", name="MCQ_by_id", requirements={"idMCQ": "\d+"})
+     * @Route("/mcq/{id}/", name="MCQ_by_id", requirements={"idMCQ": "\d+"})
      */
     public function getMCQ($id=-1)
     {
@@ -25,7 +25,7 @@ class MCQController extends Controller
         return $APIResp->returnResponse($response);
     }
     /**
-     * @Route("/mcq/{idMCQ}/validate/", name="MCQ_Validation", requirements={"idMCQ": "\d+"})
+     * @Route("/mcq/{id}/validate/", name="MCQ_Validation", requirements={"idMCQ": "\d+"})
      */
     public function validateMCQ($id=-1)
     {
@@ -45,7 +45,7 @@ class MCQController extends Controller
     /**
      * @Route("/mcq/create/", name="MCQ_Creation")
      */
-    public function addMCQ($id=-1)
+    public function addMCQ()
     {
         //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
