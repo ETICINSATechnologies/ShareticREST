@@ -18,10 +18,10 @@ class FormationController extends Controller
 
         //Just an example of a possible structure of the response
         $response = array();
-        $response[0]=array("id"=>0,"name"=>"formation0");
-        $response[1]=array("id"=>1,"name"=>"formation1");
-        $response[2]=array("id"=>2,"name"=>"formation2");
-
+        $response['id']="1";
+        $response['name']="PHP";
+        $response['description']="Apprenez PHP.";
+        $response['icon']="php.png";
 
         return $APIResp->returnResponse($response);
     }
