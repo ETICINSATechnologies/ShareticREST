@@ -16,7 +16,11 @@ class UserController extends Controller
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         $response = array();
-        $response['?']="?";
+        $response['id']="1";
+        $response['firstname']="Jindun";
+        $response['lastname']="Shao";
+        $response['mail']="mail@mail";
+        $response['picture']="test.png";
 
         return $APIResp->returnResponse($response);
     }
@@ -29,7 +33,14 @@ class UserController extends Controller
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         $response = array();
-        $response['?']="?";
+        $response['id']="1";
+        $response['badges']=array();
+        $response['badges'][0]['id']="1";
+        $response['badges'][0]['name']="Badge 1";
+        $response['badges'][0]['icon']="badge1.png";
+        $response['badges'][1]['id']="2";
+        $response['badges'][1]['name']="Badge 2";
+        $response['badges'][1]['icon']="badge2.png";
 
         return $APIResp->returnResponse($response);
     }
@@ -42,7 +53,11 @@ class UserController extends Controller
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         $response = array();
-        $response['?']="?";
+        $response['id']=$idUser;
+        $response['firstname']="Sacha";
+        $response['lastname']="Barkat";
+        $response['mail']="mail@mail";
+        $response['picture']="test.png";
 
         return $APIResp->returnResponse($response);
     }
@@ -55,7 +70,14 @@ class UserController extends Controller
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         $response = array();
-        $response['?']="?";
+        $response['id']=$idUser;
+        $response['badges']=array();
+        $response['badges'][0]['id']="1";
+        $response['badges'][0]['name']="Badge 1";
+        $response['badges'][0]['icon']="badge1.png";
+        $response['badges'][1]['id']="2";
+        $response['badges'][1]['name']="Badge 2";
+        $response['badges'][1]['icon']="badge2.png";
 
         return $APIResp->returnResponse($response);
     }
@@ -69,7 +91,6 @@ class UserController extends Controller
         $APIResp = $this->container->get('sharetic.APIResponse');
 
         $response = array();
-        $response['?']="?";
 
         return $APIResp->returnResponse($response);
     }
