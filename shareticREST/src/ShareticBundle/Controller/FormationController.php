@@ -26,6 +26,23 @@ class FormationController extends Controller
         return $APIResp->returnResponse($response);
     }
 
+    /**
+     * @Route("/formations", name="formation")
+     */
+    public function getFormations()
+    {
+        //Initializing the service
+        $APIResp = $this->container->get('sharetic.APIResponse');
+
+        //Just an example of a possible structure of the response
+        $response = array();
+        $response[0]=array("id"=>0,"name"=>"Test0", "description"=>"Description test0", "icon"=>"test0.png");
+        $response[1]=array("id"=>1,"name"=>"Test1", "description"=>"Description test1", "icon"=>"test1.png");
+        $response[2]=array("id"=>2,"name"=>"Test2", "description"=>"Description test2", "icon"=>"test2.png");
+
+        return $APIResp->returnResponse($response);
+    }
+
     // POST REQUEST:
     /**
      * @Route("/formation/{id}/addChapter", name="formation_addChapter", requirements={"id": "\d+"})
