@@ -27,7 +27,7 @@ class FormationController extends Controller
     }
 
     /**
-     * @Route("/formations", name="formation")
+     * @Route("/formations", name="formations")
      */
     public function getFormations()
     {
