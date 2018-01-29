@@ -15,7 +15,7 @@ class PoleController extends Controller
      */
     public function getListPoles()
     {
-        $em = $this->get('doctrine.orm.entity_manager');
+        /*$em = $this->get('doctrine.orm.entity_manager');
 
         $repo_pole = $em->getRepository('ShareticBundle:Pole');
 
@@ -28,9 +28,20 @@ class PoleController extends Controller
             $response[$c]=$pole_arr;
             $c++;
 
-        }
+        }*/
 
         $APIResp = $this->container->get('sharetic.APIResponse');
+
+        $response = array();
+        $response[0] = array();
+        $response[0]['id']="1";
+        $response[0]['name']="DSI";
+        $response[0]['description']="Le pole DSI.";
+
+        $response[1] = array();
+        $response[1]['id']="1";
+        $response[1]['name']="UA";
+        $response[1]['description']="Le pole UA.";
 
         return $APIResp->returnResponse($response);
     }
@@ -39,7 +50,7 @@ class PoleController extends Controller
      */
     public function getListFormations($id=-1)
     {
-        $em = $this->get('doctrine.orm.entity_manager');
+        /*$em = $this->get('doctrine.orm.entity_manager');
 
         $repo_pole = $em->getRepository('ShareticBundle:Formation');
 
@@ -57,9 +68,20 @@ class PoleController extends Controller
             $response[$c]=$formation_arr;
             $c++;
 
-        }
+        }*/
 
         $APIResp = $this->container->get('sharetic.APIResponse');
+
+        $response = array();
+        $response[0] = array();
+        $response[0]['id']="1";
+        $response[0]['name']="PHP";
+        $response[0]['description']="La formation PHP.";
+
+        $response[1] = array();
+        $response[1]['id']="2";
+        $response[1]['name']="Java";
+        $response[1]['description']="La formation Java.";
 
         return $APIResp->returnResponse($response);
     }
