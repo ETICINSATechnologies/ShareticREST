@@ -4,15 +4,14 @@ namespace ShareticBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
- * formation
+ * File
  *
- * @ORM\Table(name="formation")
- * @ORM\Entity(repositoryClass="ShareticBundle\Repository\FormationRepository")
+ * @ORM\Table(name="file")
+ * @ORM\Entity(repositoryClass="ShareticBundle\Repository\FileRepository")
  */
-class Formation
+class File
 {
     /**
      * @var int
@@ -33,34 +32,29 @@ class Formation
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true))
+     * @ORM\Column(name="description", type="string", length=255, nullable=true))
      */
     private $description;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="isDraft", type="boolean")
+     * @ORM\Column(name="type", type="string", length=25)
      */
-    private $isDraft;
+    private $type;
 
     /**
-     * @ManyToOne(targetEntity="Pole")
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255)
+     */
+    private $path;
+
+    /**
+     * @ManyToOne(targetEntity="Chapter")
      * @ORM\JoinColumn(nullable=false)
      **/
-    private $pole;
-
-    /**
-     * @ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(nullable=false)
-     **/
-    private $author;
-
-
-    /**
-     * @ORM\OneToOne(targetEntity="Icon", cascade={"persist"})
-     */
-    private $image;
+    private $chapter;
 
     /**
      * Get id
@@ -77,7 +71,7 @@ class Formation
      *
      * @param string $name
      *
-     * @return formation
+     * @return File
      */
     public function setName($name)
     {
@@ -101,7 +95,7 @@ class Formation
      *
      * @param string $description
      *
-     * @return formation
+     * @return File
      */
     public function setDescription($description)
     {
@@ -121,81 +115,71 @@ class Formation
     }
 
     /**
-     * Set isDraft
+     * Set type
      *
-     * @param boolean $isDraft
+     * @param string $type
      *
-     * @return formation
+     * @return File
      */
-    public function setIsDraft($isDraft)
+    public function setType($type)
     {
-        $this->isDraft = $isDraft;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get isDraft
+     * Get type
      *
-     * @return bool
+     * @return string
      */
-    public function getIsDraft()
+    public function getType()
     {
-        return $this->isDraft;
+        return $this->type;
     }
 
     /**
-     * @param Icon $image
+     * Set path
      *
-     * @return Formation
+     * @param string $path
+     *
+     * @return File
      */
-    public function setImage(Icon $image){
-        $this->image=$image;
+    public function setPath($path)
+    {
+        $this->path = $path;
 
         return $this;
     }
 
     /**
-     * @return Icon
+     * Get path
+     *
+     * @return string
      */
-    public function getImage(){
-        return $this->image;
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**
-     * @param Pole $pole
+     * @param Chapter $chapter
      *
-     * @return Formation
+     * @return File
      */
-    public function setPole(Pole $pole){
-        $this->pole=$pole;
+    public function setChapter($chapter)
+    {
+        $this->chapter = $chapter;
 
         return $this;
     }
 
     /**
-     * @return Pole
+     * @return Chapter
      */
-    public function getPole(){
-        return $this->pole;
-    }
-
-    /**
-     * @param User $user
-     *
-     * @return Formation
-     */
-    public function setAuthor(User $user){
-        $this->author=$user;
-
-        return $this;
-    }
-
-    /**
-     * @return User
-     */
-    public function getAuthor(){
-        return $this->author;
+    public function getChapter()
+    {
+        return $this->chapter;
     }
 }
 
