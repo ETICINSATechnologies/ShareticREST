@@ -4,15 +4,14 @@ namespace ShareticBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
- * formation
+ * Chapter
  *
- * @ORM\Table(name="formation")
- * @ORM\Entity(repositoryClass="ShareticBundle\Repository\FormationRepository")
+ * @ORM\Table(name="chapter")
+ * @ORM\Entity(repositoryClass="ShareticBundle\Repository\ChapterRepository")
  */
-class Formation
+class Chapter
 {
     /**
      * @var int
@@ -33,9 +32,23 @@ class Formation
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true))
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
 
     /**
      * @var bool
@@ -45,22 +58,10 @@ class Formation
     private $isDraft;
 
     /**
-     * @ManyToOne(targetEntity="Pole")
+     * @ManyToOne(targetEntity="Formation")
      * @ORM\JoinColumn(nullable=false)
      **/
-    private $pole;
-
-    /**
-     * @ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(nullable=false)
-     **/
-    private $author;
-
-
-    /**
-     * @ORM\OneToOne(targetEntity="Icon", cascade={"persist"})
-     */
-    private $image;
+    private $formation;
 
     /**
      * Get id
@@ -77,7 +78,7 @@ class Formation
      *
      * @param string $name
      *
-     * @return formation
+     * @return Chapter
      */
     public function setName($name)
     {
@@ -101,7 +102,7 @@ class Formation
      *
      * @param string $description
      *
-     * @return formation
+     * @return Chapter
      */
     public function setDescription($description)
     {
@@ -121,11 +122,59 @@ class Formation
     }
 
     /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Chapter
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Chapter
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
      * Set isDraft
      *
      * @param boolean $isDraft
      *
-     * @return formation
+     * @return Chapter
      */
     public function setIsDraft($isDraft)
     {
@@ -145,57 +194,23 @@ class Formation
     }
 
     /**
-     * @param Icon $image
+     * @param Formation $formation
      *
-     * @return Formation
+     * @return Chapter
      */
-    public function setImage(Icon $image){
-        $this->image=$image;
+    public function setFormation($formation)
+    {
+        $this->formation = $formation;
 
         return $this;
     }
 
     /**
-     * @return Icon
-     */
-    public function getImage(){
-        return $this->image;
-    }
-
-    /**
-     * @param Pole $pole
-     *
      * @return Formation
      */
-    public function setPole(Pole $pole){
-        $this->pole=$pole;
-
-        return $this;
-    }
-
-    /**
-     * @return Pole
-     */
-    public function getPole(){
-        return $this->pole;
-    }
-
-    /**
-     * @param User $user
-     *
-     * @return Formation
-     */
-    public function setAuthor(User $user){
-        $this->author=$user;
-
-        return $this;
-    }
-
-    /**
-     * @return User
-     */
-    public function getAuthor(){
-        return $this->author;
+    public function getFormation()
+    {
+        return $this->formation;
     }
 }
 

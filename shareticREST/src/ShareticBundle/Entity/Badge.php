@@ -5,12 +5,12 @@ namespace ShareticBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Pole
+ * Badge
  *
- * @ORM\Table(name="pole")
- * @ORM\Entity(repositoryClass="ShareticBundle\Repository\PoleRepository")
+ * @ORM\Table(name="badge")
+ * @ORM\Entity(repositoryClass="ShareticBundle\Repository\BadgeRepository")
  */
-class Pole
+class Badge
 {
     /**
      * @var int
@@ -24,14 +24,14 @@ class Pole
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=25, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true))
+     * @ORM\Column(name="description", type="string", length=255, nullable=true))
      */
     private $description;
 
@@ -39,6 +39,7 @@ class Pole
      * @ORM\OneToOne(targetEntity="Icon", cascade={"persist"})
      */
     private $image;
+
 
     /**
      * Get id
@@ -55,7 +56,7 @@ class Pole
      *
      * @param string $name
      *
-     * @return Pole
+     * @return Badge
      */
     public function setName($name)
     {
@@ -79,7 +80,7 @@ class Pole
      *
      * @param string $description
      *
-     * @return Pole
+     * @return Badge
      */
     public function setDescription($description)
     {
@@ -101,7 +102,7 @@ class Pole
     /**
      * @param Icon $image
      *
-     * @return Pole
+     * @return Badge
      */
     public function setImage(Icon $image){
         $this->image=$image;

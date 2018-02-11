@@ -3,14 +3,15 @@
 namespace ShareticBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * Pole
+ * MCQ
  *
- * @ORM\Table(name="pole")
- * @ORM\Entity(repositoryClass="ShareticBundle\Repository\PoleRepository")
+ * @ORM\Table(name="m_c_q")
+ * @ORM\Entity(repositoryClass="ShareticBundle\Repository\MCQRepository")
  */
-class Pole
+class MCQ
 {
     /**
      * @var int
@@ -24,21 +25,29 @@ class Pole
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=25, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true))
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="Icon", cascade={"persist"})
+     * @var int
+     *
+     * @ORM\Column(name="rewardMax", type="integer")
      */
-    private $image;
+    private $rewardMax;
+
+    /**
+     * @ManyToOne(targetEntity="Chapter")
+     * @ORM\JoinColumn(nullable=false)
+     **/
+    private $chapter;
 
     /**
      * Get id
@@ -55,7 +64,7 @@ class Pole
      *
      * @param string $name
      *
-     * @return Pole
+     * @return MCQ
      */
     public function setName($name)
     {
@@ -79,7 +88,7 @@ class Pole
      *
      * @param string $description
      *
-     * @return Pole
+     * @return MCQ
      */
     public function setDescription($description)
     {
@@ -99,21 +108,47 @@ class Pole
     }
 
     /**
-     * @param Icon $image
+     * Set rewardMax
      *
-     * @return Pole
+     * @param integer $rewardMax
+     *
+     * @return MCQ
      */
-    public function setImage(Icon $image){
-        $this->image=$image;
+    public function setRewardMax($rewardMax)
+    {
+        $this->rewardMax = $rewardMax;
 
         return $this;
     }
 
     /**
-     * @return Icon
+     * Get rewardMax
+     *
+     * @return int
      */
-    public function getImage(){
-        return $this->image;
+    public function getRewardMax()
+    {
+        return $this->rewardMax;
+    }
+
+    /**
+     * @param Chapter $chapter
+     *
+     * @return MCQ
+     */
+    public function setChapter($chapter)
+    {
+        $this->chapter = $chapter;
+
+        return $this;
+    }
+
+    /**
+     * @return Chapter
+     */
+    public function getChapter()
+    {
+        return $this->chapter;
     }
 }
 
