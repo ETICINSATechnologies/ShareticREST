@@ -15,13 +15,43 @@ class FormationController extends Controller
     {
         //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
+        $entityFormatter = $this->container->get('sharetic.EntityFormatter');
+
+        $em = $this->getDoctrine()->getManager();
+        $formation = $em->getRepository('ShareticBundle:Formation')->find($id);
+        $chapters = $em->getRepository('ShareticBundle:Chapter')->findBy(array("formation"=>$formation));
+
+        if($formation === null){
+            return $APIResp->returnError("F_001");
+        }
+
+        $chapters = $em->getRepository('ShareticBundle:Chapter')->findBy(array("formation"=>$formation));
+        $chaptersRes = array();
+
+        foreach ($chapters as $chap) {
+            $position=$chap->getPosition();
+            $chaptersRes[$position]=array();
+            $chaptersRes[$position]['id']=$chap->getId();
+            $chaptersRes[$position]['position']=$position;
+            $chaptersRes[$position]['name']=$chap->getName();
+            $chaptersRes[$position]['description']=$chap->getDescription();
+            $chaptersRes[$position]['draft']=$chap->getIsDraft();
+            $chaptersRes[$position]['icon']=$entityFormatter->formatIcon($chap->getImage());
+
+        }
+
 
         //Just an example of a possible structure of the response
         $response = array();
-        $response['id']="1";
-        $response['name']="PHP";
-        $response['description']="Apprenez PHP.";
-        $response['icon']="php.png";
+        $response['id']=$formation->getId();
+        $response['name']=$formation->getName();
+        $response['description']=$formation->getDescription();
+        $response['draft']=$formation->getIsDraft();
+        $response['icon']=$entityFormatter->formatIcon($formation->getImage());
+        $response['pole']=$entityFormatter->formatPole($formation->getPole());
+        $response['author']=$entityFormatter->formatUser($formation->getAuthor());
+        $response['chapters']=$chaptersRes;
+
 
         return $APIResp->returnResponse($response);
     }
@@ -34,11 +64,22 @@ class FormationController extends Controller
         //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
 
-        //Just an example of a possible structure of the response
+        $entityFormatter = $this->container->get('sharetic.EntityFormatter');
+
+        $em = $this->getDoctrine()->getManager();
+        $formations = $em->getRepository('ShareticBundle:Formation')->findBy(array("isDraft"=>false));
+
         $response = array();
-        $response[0]=array("id"=>0,"name"=>"Test0", "description"=>"Description test0", "icon"=>"test0.png");
-        $response[1]=array("id"=>1,"name"=>"Test1", "description"=>"Description test1", "icon"=>"test1.png");
-        $response[2]=array("id"=>2,"name"=>"Test2", "description"=>"Description test2", "icon"=>"test2.png");
+        foreach ($formations as $formation) {
+            $formRes = array();
+            $formRes['id']=$formation->getId();
+            $formRes['name']=$formation->getName();
+            $formRes['description']=$formation->getDescription();
+            $formRes['icon']=$entityFormatter->formatIcon($formation->getImage());
+            $formRes['pole']=$entityFormatter->formatPole($formation->getPole());
+            $formRes['author']=$entityFormatter->formatUser($formation->getAuthor());
+            array_push($response,$formRes);
+        }
 
         return $APIResp->returnResponse($response);
     }
