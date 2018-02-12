@@ -63,6 +63,12 @@ class Chapter
      **/
     private $formation;
 
+
+    /**
+     * @ORM\OneToOne(targetEntity="Icon", cascade={"persist"})
+     */
+    private $image;
+
     /**
      * Get id
      *
@@ -211,6 +217,24 @@ class Chapter
     public function getFormation()
     {
         return $this->formation;
+    }
+
+    /**
+     * @param Icon $image
+     *
+     * @return Chapter
+     */
+    public function setImage(Icon $image){
+        $this->image=$image;
+
+        return $this;
+    }
+
+    /**
+     * @return Icon
+     */
+    public function getImage(){
+        return $this->image;
     }
 }
 
