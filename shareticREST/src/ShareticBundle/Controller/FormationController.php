@@ -19,10 +19,9 @@ class FormationController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $formation = $em->getRepository('ShareticBundle:Formation')->find($id);
-        $chapters = $em->getRepository('ShareticBundle:Chapter')->findBy(array("formation"=>$formation));
 
         if($formation === null){
-            return $APIResp->returnError("F_001");
+            return $APIResp->returnError("F_NF");
         }
 
         $chapters = $em->getRepository('ShareticBundle:Chapter')->findBy(array("formation"=>$formation));
@@ -30,26 +29,15 @@ class FormationController extends Controller
 
         foreach ($chapters as $chap) {
             $position=$chap->getPosition();
-            $chaptersRes[$position]=array();
-            $chaptersRes[$position]['id']=$chap->getId();
-            $chaptersRes[$position]['position']=$position;
-            $chaptersRes[$position]['name']=$chap->getName();
-            $chaptersRes[$position]['description']=$chap->getDescription();
+            $chaptersRes[$position]=$entityFormatter->formatChapter($chap);
             $chaptersRes[$position]['draft']=$chap->getIsDraft();
-            $chaptersRes[$position]['icon']=$entityFormatter->formatIcon($chap->getImage());
-
         }
 
 
         //Just an example of a possible structure of the response
-        $response = array();
-        $response['id']=$formation->getId();
-        $response['name']=$formation->getName();
-        $response['description']=$formation->getDescription();
+        $response = $entityFormatter->formatFormation($formation);
         $response['draft']=$formation->getIsDraft();
-        $response['icon']=$entityFormatter->formatIcon($formation->getImage());
         $response['pole']=$entityFormatter->formatPole($formation->getPole());
-        $response['author']=$entityFormatter->formatUser($formation->getAuthor());
         $response['chapters']=$chaptersRes;
 
 
@@ -71,13 +59,8 @@ class FormationController extends Controller
 
         $response = array();
         foreach ($formations as $formation) {
-            $formRes = array();
-            $formRes['id']=$formation->getId();
-            $formRes['name']=$formation->getName();
-            $formRes['description']=$formation->getDescription();
-            $formRes['icon']=$entityFormatter->formatIcon($formation->getImage());
+            $formRes = $entityFormatter->formatFormation($formation);
             $formRes['pole']=$entityFormatter->formatPole($formation->getPole());
-            $formRes['author']=$entityFormatter->formatUser($formation->getAuthor());
             array_push($response,$formRes);
         }
 

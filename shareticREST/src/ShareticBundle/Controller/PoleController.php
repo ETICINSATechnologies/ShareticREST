@@ -15,33 +15,18 @@ class PoleController extends Controller
      */
     public function getListPoles()
     {
-        /*$em = $this->get('doctrine.orm.entity_manager');
-
-        $repo_pole = $em->getRepository('ShareticBundle:Pole');
-
-        $records = $repo_pole->findAll();
-
-        $response = array();
-        $c=0;
-        foreach($records as $pole){
-            $pole_arr = array("id"=>$pole->getId(), "name"=>$pole->getName(),"description"=>$pole->getDescription());
-            $response[$c]=$pole_arr;
-            $c++;
-
-        }*/
-
         $APIResp = $this->container->get('sharetic.APIResponse');
 
-        $response = array();
-        $response[0] = array();
-        $response[0]['id']="1";
-        $response[0]['name']="DSI";
-        $response[0]['description']="Le pole DSI.";
+        $entityFormatter = $this->container->get('sharetic.EntityFormatter');
 
-        $response[1] = array();
-        $response[1]['id']="1";
-        $response[1]['name']="UA";
-        $response[1]['description']="Le pole UA.";
+        $em = $this->getDoctrine()->getManager();
+        $poles = $em->getRepository('ShareticBundle:Pole')->findAll();
+
+        $response = array();
+        foreach ($poles as $pole) {
+            $polesRes = formatPole($pole);
+            array_push($response,$polesRes);
+        }
 
         return $APIResp->returnResponse($response);
     }
@@ -50,38 +35,33 @@ class PoleController extends Controller
      */
     public function getListFormations($id=-1)
     {
-        /*$em = $this->get('doctrine.orm.entity_manager');
-
-        $repo_pole = $em->getRepository('ShareticBundle:Formation');
-
-        $records = $repo_pole->findBy(array('pole_id'=>$id));
-
-        $response = array();
-        $c=0;
-        foreach($records as $formation){
-            $formation_arr = array(
-                "id" => $formation->getId(),
-                "name" => $formation->getName(),
-                "description" => $formation->getDescription()
-            );
-
-            $response[$c]=$formation_arr;
-            $c++;
-
-        }*/
-
         $APIResp = $this->container->get('sharetic.APIResponse');
 
-        $response = array();
-        $response[0] = array();
-        $response[0]['id']="1";
-        $response[0]['name']="PHP";
-        $response[0]['description']="La formation PHP.";
+        $entityFormatter = $this->container->get('sharetic.EntityFormatter');
 
-        $response[1] = array();
-        $response[1]['id']="2";
-        $response[1]['name']="Java";
-        $response[1]['description']="La formation Java.";
+        $em = $this->getDoctrine()->getManager();
+        $pole = $em->getRepository('ShareticBundle:Pole')->find($id);
+
+        if($pole === null){
+            return $APIResp->returnError("P_NF");
+        }
+
+        $response = array();
+        $response['pole']=$entityFormatter->formatPole($pole);
+
+        $formations = $em->getRepository('ShareticBundle:Formation')->findBy(array('pole'=>$pole));
+
+        $formationList = array();
+
+        foreach ($formations as $formation) {
+            $formationRes = $entityFormatter->formatFormation($formation);
+            unset($formationRes['pole']);
+            array_push($formationList,$formationRes);
+        }
+
+        $response = array();
+        $response['pole']=$entityFormatter->formatPole($pole);
+        $response['formations']=$formationList;
 
         return $APIResp->returnResponse($response);
     }
