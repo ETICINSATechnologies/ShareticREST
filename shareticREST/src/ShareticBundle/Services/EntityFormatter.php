@@ -56,7 +56,6 @@ class EntityFormatter
         $return['position']=$chapter->getPosition();
         $return['name']=$chapter->getName();
         $return['description']=$chapter->getDescription();
-        $return['draft']=$chapter->getIsDraft();
         $return['icon']=$this->formatIcon($chapter->getImage());
 
         return $return;
