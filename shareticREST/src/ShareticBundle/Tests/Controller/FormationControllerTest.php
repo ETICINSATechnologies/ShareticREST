@@ -23,7 +23,7 @@ class FormationControllerTest extends WebTestCase
             echo " OK\n";
         }
 
-        $reqPOST = array("/api/formation/0/addChapter","/api/formation/0/edit","/api/formation/0/rate","/api/formation/create");
+        $reqPOST = array("/api/formation/0/addChapter","/api/formation/0/edit","/api/formation/add","/api/formation/0/delete");
 
         for($i=0;$i<sizeof($reqPOST);$i++){
             echo $reqPOST[$i];
