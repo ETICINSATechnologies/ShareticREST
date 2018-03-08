@@ -24,7 +24,7 @@ class EntityFormatter
     public function formatUser($user){
         $return = array();
         $return['id']=$user->getId();
-        $return['fistname']=$user->getFirstname();
+        $return['firstname']=$user->getFirstname();
         $return['lastname']=$user->getLastname();
         $return['icon']=$this->formatIcon($user->getImage());
 
