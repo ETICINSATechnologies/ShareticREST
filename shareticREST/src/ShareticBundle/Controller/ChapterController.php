@@ -107,5 +107,37 @@ class ChapterController extends Controller
 
         return $APIResp->returnResponse($response);
     }
+    /**
+     * @Route("/chapter/{idChapter}/delete", name="chapter_delete", requirements={"idChapter": "\d+"})
+     */
+    public function deleteFormation($idChapter=-1)
+    {
+        //Initializing the service
+        $APIResp = $this->container->get('sharetic.APIResponse');
+        $entityFormatter = $this->container->get('sharetic.EntityFormatter');
 
+        $em = $this->getDoctrine()->getManager();
+        $chapter = $em->getRepository('ShareticBundle:Chapter')->find($idChapter);
+
+        if($chapter === null){
+            // Formation not found
+            return $APIResp->returnError("C_NF");
+        }
+
+        $author = $chapter->getFormation()->getAuthor();
+
+        // TODO: implements authentication
+        if($author->getId()!=1){
+            // Formation permission denied
+            return $APIResp->returnError("C_PD");
+        }
+
+
+        $em->remove($chapter);
+        $em->flush();
+
+        $response = array();
+
+        return $APIResp->returnResponse($response);
+    }
 }
