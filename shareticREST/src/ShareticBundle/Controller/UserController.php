@@ -12,15 +12,21 @@ class UserController extends Controller
      */
     public function getProfil()
     {
-        //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
+        $entityFormatter = $this->container->get('sharetic.EntityFormatter');
 
-        $response = array();
-        $response['id']="1";
-        $response['firstname']="Jindun";
-        $response['lastname']="Shao";
-        $response['mail']="mail@mail";
-        $response['picture']="test.png";
+        $em = $this->getDoctrine()->getManager();
+
+        // TODO: implements authentication
+        $id = 1;
+        $user = $em->getRepository('ShareticBundle:User')->find($id);
+
+        if($user === null){
+            // Formation not found
+            return $APIResp->returnError("U_NF");
+        }
+
+        $response=$entityFormatter->formatUser($user);
 
         return $APIResp->returnResponse($response);
     }
@@ -51,13 +57,17 @@ class UserController extends Controller
     {
         //Initializing the service
         $APIResp = $this->container->get('sharetic.APIResponse');
+        $entityFormatter = $this->container->get('sharetic.EntityFormatter');
 
-        $response = array();
-        $response['id']=$idUser;
-        $response['firstname']="Sacha";
-        $response['lastname']="Barkat";
-        $response['mail']="mail@mail";
-        $response['picture']="test.png";
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('ShareticBundle:User')->find($idUser);
+
+        if($user === null){
+            // Formation not found
+            return $APIResp->returnError("U_NF");
+        }
+
+        $response=$entityFormatter->formatUser($user);
 
         return $APIResp->returnResponse($response);
     }
