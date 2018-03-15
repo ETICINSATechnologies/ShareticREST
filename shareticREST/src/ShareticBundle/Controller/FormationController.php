@@ -125,6 +125,7 @@ class FormationController extends Controller
             if($position!=$chap->getPosition()){
                 // Update position
                 $chap->setPosition($position);
+                $em->persist($chap);
             }
             $position++;
         }
@@ -141,7 +142,7 @@ class FormationController extends Controller
         $em->persist($newChapter);
         $em->flush();
 
-        $response = array($entityFormatter->formatChapter($newChapter));
+        $response = $entityFormatter->formatChapter($newChapter);
 
         return $APIResp->returnResponse($response);
     }
@@ -194,7 +195,7 @@ class FormationController extends Controller
         $formation->setDescription($formationDesc);
         $formation->setIsDraft($formationDraft);
 
-        $em->persist($formation);
+        $em->merge($formation);
         $em->flush();
 
         $response = array($entityFormatter->formatFormation($formation));
@@ -242,7 +243,7 @@ class FormationController extends Controller
         $em->persist($newFormation);
         $em->flush();
 
-        $response = array($entityFormatter->formatFormation($newFormation));
+        $response = $entityFormatter->formatFormation($newFormation);
 
         return $APIResp->returnResponse($response);
     }
