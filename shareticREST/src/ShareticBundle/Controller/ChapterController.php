@@ -99,7 +99,7 @@ class ChapterController extends Controller
         $chapter->setContent($chapterContent);
         $chapter->setIsDraft($chapterDraft);
 
-        $em->persist($chapter);
+        $em->merge($chapter);
         $em->flush();
 
         $response = $entityFormatter->formatChapter($chapter);

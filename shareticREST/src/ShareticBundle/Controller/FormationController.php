@@ -195,7 +195,7 @@ class FormationController extends Controller
         $formation->setDescription($formationDesc);
         $formation->setIsDraft($formationDraft);
 
-        $em->persist($formation);
+        $em->merge($formation);
         $em->flush();
 
         $response = array($entityFormatter->formatFormation($formation));
